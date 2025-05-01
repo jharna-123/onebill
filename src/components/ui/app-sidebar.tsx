@@ -9,30 +9,36 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
+  SidebarTrigger,
 } from "@/components/ui/sidebar"
 import * as React from "react"
 
 // Menu items.
 const items = [
   {
-    title: "Home",
+    title: "Dashboard",
     url: "#",
     icon: Home,
   },
   {
-    title: "Inbox",
+    title: "Create Invoice",
     url: "#",
     icon: Inbox,
   },
   {
-    title: "Calendar",
+    title: "Customers",
     url: "#",
     icon: Calendar,
   },
   {
-    title: "Search",
+    title: "Products/Services",
     url: "#",
     icon: Search,
+  },
+  {
+    title: "Reports",
+    url: "#",
+    icon: Settings,
   },
   {
     title: "Settings",
@@ -46,7 +52,9 @@ export function AppSidebar() {
     <Sidebar>
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel>Application</SidebarGroupLabel>
+          
+          <SidebarGroupLabel>OneBill</SidebarGroupLabel>
+          
           <SidebarGroupContent>
             <SidebarMenu>
               {items.map((item) => (

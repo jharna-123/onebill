@@ -1,5 +1,5 @@
 import Header from "../ui/Header.jsx"
-import Footer from "../ui/Footer.jsx"
+
 import { Outlet } from "react-router-dom"
 
 
@@ -8,10 +8,17 @@ import { Outlet } from "react-router-dom"
 export default function AppLayout(){
     return(
         <>
+            <div  className="flex flex-col  gap-8">
+
             
-            <Header/>
-            <Outlet/>
-            <Footer/>
+            <main>
+                <Outlet/>
+            </main>
+
+            </div>
+           
+            
+            
         </>
     )
 }

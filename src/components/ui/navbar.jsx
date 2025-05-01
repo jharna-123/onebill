@@ -1,24 +1,77 @@
-import React from 'react'
+// import React from 'react'
+import { SignInButton, SignedIn, SignedOut, SignUp, UserButton } from "@clerk/clerk-react"; 
+import {motion, useScroll} from "motion/react" 
+import logo from "../../assets/OneBill.png"
 
-function Navbar() {
-    const login = () => {
-        // Logic to handle login
-        console.log("Login button clicked")
-        
-    }
+import React, { useState } from "react";
+import { HoveredLink, Menu, MenuItem, ProductItem } from "../ui/navbar-menu";
+import { cn } from "@/lib/utils";
+import {Link} from "react-router-dom"
+
+export default function NavbarDemo() {
   return (
-    <nav className="bg-gray-800 p-4">
-      <div className="container mx-auto flex justify-between items-center">
-        <div className="text-white text-lg font-bold">OneBill</div>
-        <div className="space-x-4">
-          <a href="/" className="text-gray-300 hover:text-white">Home</a>
-          <a href="/about" className="text-gray-300 hover:text-white">About</a>
-          <a href="/contact" className="text-gray-300 hover:text-white">Contact</a>
-        </div>
-      </div>
-      <button onClick={login}> LogIn </button>
-    </nav>
-  )
+    <div className="relative w-full flex items-center justify-center">
+      <Navbar className="top-2" />
+    </div>
+  );
 }
 
-export default Navbar
+function Navbar({
+  className
+}) {
+  const [active, setActive] = useState(null);
+  return (
+    <div
+      className={cn("", className ="w-[679px] relative ")}>
+      <Menu setActive={setActive}>
+
+        <div className="absolute inset-4 pl-2">
+          <img src = {logo} className="w-[39px] h-[39px] rounded-[17px]"/>
+        </div>
+        
+          <Link to = {"/homepage"}>
+            <MenuItem setActive={setActive} active={active} item="Home"></MenuItem>
+          </Link>
+          <Link to ="/about">
+            <MenuItem setActive={setActive} active={active} item="About"></MenuItem>
+          </Link>
+          <MenuItem setActive={setActive} active={active} item="Pricing">
+            <div className="flex flex-col space-y-4 text-sm">
+              <HoveredLink href="/enterprise">Enterprise</HoveredLink>
+              <HoveredLink href="/pro">Pro</HoveredLink>
+              <HoveredLink href="/starter">Starter</HoveredLink>
+            </div>
+          </MenuItem>
+
+        <Link to = {"/"}>
+          <MenuItem setActive={setActive} active={active} item="Contact Us">
+          </MenuItem>
+        </Link>
+
+        <SignedOut>
+          <SignInButton  mode = "modal" forceRedirectUrl = "/homepage" className= "pr-4" >SignIn</SignInButton> 
+        </SignedOut >
+          
+        
+        <SignedOut>
+          <Link to ="/signup"> SignUp </Link>
+        </SignedOut>
+       
+        
+        
+        
+          <SignedIn>
+          <div className="absolute right-3 top-4 pr-2">
+            <UserButton mode = "modal" className = "h-8 w-8"  />
+          </div>
+          </SignedIn>
+
+          
+        
+          
+        
+
+      </Menu>
+    </div>
+  );
+}
