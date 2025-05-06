@@ -16,6 +16,7 @@ import  Pro from "./pages/Pricing/pro.jsx"
 import About from"./pages/about.jsx"
 import Signup from "./pages/signup.jsx"
 import Homelayout from "./components/layout/homelayout.jsx";
+import CustomersContent from "./pages/customerpage.jsx";
 
 
 
@@ -43,6 +44,7 @@ function App() {
               <Route path="/enterprise" element={<Enterprise />} />
               <Route path="/starter" element={<Starter />} />
               <Route path="/about" element={<About/>} />
+              <Route path="/users" element={<CustomersContent/>} />
         </Route>
       </>
 

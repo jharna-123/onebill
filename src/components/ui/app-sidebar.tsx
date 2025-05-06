@@ -9,6 +9,7 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
+  SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar"
 import * as React from "react"
@@ -27,7 +28,7 @@ const items = [
   },
   {
     title: "Customers",
-    url: "#",
+    url: "/users",
     icon: Calendar,
   },
   {
@@ -49,11 +50,13 @@ const items = [
 
 export function AppSidebar() {
   return (
+    
     <Sidebar>
       <SidebarContent>
         <SidebarGroup>
           
           <SidebarGroupLabel>OneBill</SidebarGroupLabel>
+          
           
           <SidebarGroupContent>
             <SidebarMenu>

@@ -7,10 +7,10 @@ const Herosection = () => {
   return (
     <div >
 
-        <div className=' relative h-[900px] flex mt-10  '>
-          <img src ={ImgHero}  className="h-[900px] w-full "></img>
+        <div className=' relative h-[900px] w-full flex flex-1   '>
+          <img src ={ImgHero}  className="absolute inset-0 h-full w-full object-cover"></img>
           <div className="absolute inset-0 bg-black/65"></div>
-          <div className='absolute top-2/6 left-2/6 transform -translate-x-1/6 -translate-0.5 font-prim font-bold drop-shadow-2xl text-9xl text-white'>
+          <div className='absolute top-2/6 left-2/6 transform -translate-x-1/6 -translate-0.5 font-prim font-bold drop-shadow-2xl text-9xl '>
            One Place For All<br></br>
             Your <span className='text-[#C2FFC6]'> ACCOUNTS</span>
           </div>

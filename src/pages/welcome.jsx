@@ -13,8 +13,10 @@ export default function Welcome() {
   
   
   return (
-    <div> 
+    <div className="relative">
+      <div className='absolute inset-0 bg-dark'></div>
       <main> 
+      
       <Herosection/>
       <Aboutus/>
       {/* <StatsSection/>
@@ -22,7 +24,7 @@ export default function Welcome() {
       <FeaturesSection/>
       <Footer/>
       </main>
-    
     </div>
+    
   );
 }

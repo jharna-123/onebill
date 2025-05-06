@@ -10,27 +10,35 @@ const Homelayout = () => {
     const path = useLocation();
     const showSidebar = path.pathname !== "/"
   return (
-    <div className='h-screen border-solid-red rounded-2xl'>  
-        <div className='grid grid-col-1  min-h-1/12    fixed top-4 inset-x-0 max-w-4xl   mx-auto z-50'>
-            
+    <div className='flex flex-col relative text-white'>
+      
+      
+      
+        <div className='grid grid-col-1  min-h-1/12  fixed top-4 inset-x-0 max-w-4xl   mx-auto z-50'>   
         <Header/>
 
         </div>
         
 
-        <div className={`${showSidebar ? 'grid sm:grid-cols-4   gap-4 min-h-10/12 ': 'grid grid-cols-1 min-h-10/12 '}`} >
-            {showSidebar && <aside className='sm:col-span-1  sm:block hidden '>
+        <div className={`${showSidebar ? 'grid sm:grid-cols-12   gap-4 min-h-10/12 ': 'grid grid-cols-1 min-h-10/12 '}`} >
+            {showSidebar && <aside className='sm:col-span-2  sm:block hidden '>
             <SidebarProvider> 
             <AppSidebar />
             <SidebarTrigger />    
-            </SidebarProvider></aside>}
+            </SidebarProvider>
+            </aside>}
             
             
             
-            <main className='sm:col-span-3 '> <Outlet/></main>
+            <main className='sm:col-span-10 '> 
+            
+            <div className="relative z-10 flex items-center justify-center h-full">
+            <Outlet/>
+            </div>
+              </main>
         </div>
         
-        <div className='min-h-1/12'>
+        <div className='min-h-1/12 bg-[#7B6D8D]'>
             <footer>
 
             </footer>

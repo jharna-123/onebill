@@ -1,91 +1,86 @@
-import { useEffect, useState } from "react";
-import {
-  getCustomers,
-  deleteCustomer,
-  updateCustomer,
-  createCustomer,
-} from "../api/customer";
+import React from 'react'
+import { useState, useEffect } from 'react'
+import { getItems, updateItems, deleteItems, createItem } from '../api/items'
 
-export default function Homepage() {
-  const [customers, setCustomers] = useState([]);
-  const [modalOpen, setModalOpen] = useState(false);
-  const [editing, setEditing] = useState(null); // null for add mode
-  const [formData, setFormData] = useState({ name: "", email: "", phone:"", address: "" });
 
-  useEffect(() => {
-    fetchCustomers();
-  }, []);
+export default function Items()  {
+    const [items, setItems] = useState()
+    const[showForm, setshowForm] = useState(false)
+    const[Edit, setEdit] = useState(null)
+    const[itemdata, setItemdata] = useState({name:"", price:"", stock:"", tax:""})
 
-  const fetchCustomers = async () => {
-    const data = await getCustomers();
-    setCustomers(data);
-  };
-
-  const handleDelete = async (id) => {
-    await deleteCustomer(id);
-    setCustomers((prev) => prev.filter((c) => c.id !== id));
-  };
-
-  const handleEditClick = (cust) => {
-    setEditing(cust);
-    setFormData({
-      name: cust.name,
-      email: cust.email,
-      phone:cust.phone,
-      address: cust.address,
-    });
-    setModalOpen(true);
-  };
-
-  const handleAddClick = () => {
-    setEditing(null); // we're adding, not edititing
-    setFormData({ name: "", email: "",phone:"", address: "" });
-    setModalOpen(true);
-  };
-
-  const handleFormChange = (e) => {
-    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (editing) {
-      await updateCustomer(editing.id, formData);
-    } else {
-      await createCustomer(formData);
+    
+    useEffect(() => {
+        fetchitems();
+      }, []);
+    
+      const fetchitems = async () => {
+        const data = await getItems();
+        setCustomers(data);
+      };
+    
+      const handleDelete = async (id) => {
+        await deleteItems(id);
+        setCustomers((prev) => prev.filter((c) => c.id !== id));
+      };
+    
+      const handleEditClick = () => {
+        setEdit(cust);
+        setFormData({
+          name: cust.name,
+          email: cust.email,
+          phone:cust.phone,
+          address: cust.address,
+        });
+        setModalOpen(true);
+      };
+    
+      const handleAddClick = ( ) =>{
+        setEdit(null);
+        setshowForm(true)
+        setItemdata({name:"", price:"", stock:"", tax:""})
     }
-    setModalOpen(false);
-    setEditing(null);
-    fetchCustomers();
-  };
+    
+      const handleFormChange = (e) => {
+        setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+      };
+    
+      const handleSubmit = async (e) => {
+        e.preventDefault();
+        if (editing) {
+          await updateCustomer(editing.id, formData);
+        } else {
+          await createCustomer(formData);
+        }
+        setModalOpen(false);
+        setEditing(null);
+        fetchCustomers();
+      };
 
   return (
-    <div className="font-prim flex flex-col  text-white items-center h-full  w-full pt-40">
-      <button
-        onClick={handleAddClick}
-        className="mb-4 bg-cyan-700  px-4 py-2 rounded"
-      >
-        Add Customer
-      </button>
+    <div>
+        <button onClick = {handleAddClick} className="mb-4 bg-cyan-700 text-white px-4 py-2 rounded">
+            Add Items
+        </button>
 
-      <table className=" font-prim border border-separate border-spacing-2 border-gray-500 w-full max-w-4xl">
+        <table className=" font-prim border border-separate border-spacing-2 border-gray-500 w-full max-w-4xl">
         <caption className="text-lg font-bold  pb-2">Customer Details</caption>
         <thead>
           <tr>
             <th className="border border-gray-300 p-4">Name</th>
-            <th className="border border-gray-300 p-4">Email</th>
-            <th className="border border-gray-300 p-4">Phone</th>
-            <th className="border border-gray-300 p-4">Address</th>
-            <th className="border border-gray-300 p-4">Actions</th>
+            <th className="border border-gray-300 p-4">Price</th>
+            <th className="border border-gray-300 p-4">Stock</th>
+            <th className="border border-gray-300 p-4">Tax</th>
+            
           </tr>
         </thead>
         <tbody>
-          {customers.map((cust) => (
+          {items.map((cust) => (
             <tr key={cust.id}>
-              <td className="border border-gray-300 p-4">{cust.name}</td>
-              <td className="border border-gray-300 p-4">{cust.email}</td>
-              <td className="border border-gray-300 p-4">{cust.phone}</td>
-              <td className="border border-gray-300 p-4">{cust.address}</td>
+              <td className="border border-gray-300 p-4">{items.name}</td>
+              <td className="border border-gray-300 p-4">{items.price}</td>
+              <td className="border border-gray-300 p-4">{items.stock}</td>
+              <td className="border border-gray-300 p-4">{items.tax}</td>
               <td className="border border-gray-300 p-4 space-x-2">
                 <button
                   className="bg-yellow-500 text-white px-3 py-1 rounded"
@@ -105,28 +100,28 @@ export default function Homepage() {
         </tbody>
       </table>
 
-      {/* Add/Edit Dialog */}
-      {modalOpen && (
+
+        {showForm && (
         <div className="font-prim fixed inset-0 flex justify-center items-center  bg-black/50 bg-opacity-50 z-10">
-          <div className="bg-black p-6 rounded shadow w-96 relative">
+          <div className="bg-white p-6 rounded shadow w-96 relative">
             <button
               onClick={() => {
-                setModalOpen(false);
-                setEditing(null);
+                setshowForm(false);
+                setEdit(null);
               }}
               className="absolute top-2 right-2 text-xl text-gray-600"
             >
               ×
             </button>
             <h2 className="text-lg font-bold mb-4">
-              {editing ? "Edit Customer" : "Add Customer"}
+              {editing ? "Edit item" : "Add item"}
             </h2>
             <form onSubmit={handleSubmit} className="space-y-3">
               <input
                 type="text"
                 name="name"
                 placeholder="Name"
-                value={formData.name}
+                value={itemdata.name}
                 onChange={handleFormChange}
                 required
                 className="w-full p-2 border rounded"
@@ -177,4 +172,6 @@ export default function Homepage() {
       )}
     </div>
   );
-}
+            
+)}
+   
